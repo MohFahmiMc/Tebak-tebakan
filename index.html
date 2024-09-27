@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebak-Tebakan Seru</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('space.gif'); /* Ganti dengan nama file gambar Anda */
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        header {
+            background-color: ;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: cyan;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        h2 {
+            margin: 20px 0;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: blue;
+            color: cyan;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: blue;
+        }
+
+        #gameContainer {
+            margin-top: 20px;
+            text-align: center;
+            background-color: cyan;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid cyan;
+            width: calc(100% - 22px);
+        }
+
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #contact input, #contact textarea {
+            margin-bottom: 10px;
+            width: 300px;
+        }
+
+        #contact button {
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: cyan;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #contact button:hover {
+            background-color: cyan;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tebak-Tebakan Seru</h1>
+        <nav>
+            <a href="#Tebak-Tebakan seru">Tebak-Tebakan seru</a>
+        </nav>
+    </header>
+    
+    <section id="play">
+        <h2>Pilih Kategori</h2>
+        <div class="button-container">
+            <button onclick="startGame('hewan')">Hewan</button>
+            <button onclick="startGame('negara')">Negara</button>
+            <button onclick="startGame('makanan')">Makanan</button>
+            <button onclick="startGame('random')">random</button>
+        </div>
+        <div id="gameContainer" style="display:none;">
+            <h3 id="question"></h3>
+            <input type="text" id="answer" placeholder="Jawaban Anda">
+            <button onclick="checkAnswer()">Tebak!</button>
+            <p id="result"></p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About the Game</h2>
+        <p>Selamat datang di Tebak-Tebakan Seru! Uji pengetahuanmu dalam berbagai kategori.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <script>
+        const questions = {
+            hewan: [
+                { question: "Hewan apa yang bisa terbang dan memiliki bulu?", answer: "Burung" },
+                { question: "Hewan terbesar di darat?", answer: "Gajah" }
+            ],
+            negara: [
+                { question: "Negara mana yang terkenal dengan Menara Eiffel?", answer: "Prancis" },
+                { question: "Negara mana yang memiliki panda sebagai hewan nasional?", answer: "Cina" }
+            ],
+            makanan: [
+                { question: "Makanan yang terbuat dari padi dan sering dimakan di Asia?", answer: "Nasi" },
+                { question: "Makanan yang terbuat dari susu dan sering dimakan saat sarapan?", answer: "Keju" }
+            ],
+            random: [
+                { question: "Pemain bola apa yang beratnya 3kg?", answer: "Bambang tabung gas" },
+                { question: "Kenapa matahari tenggelam?", answer: "gak bisa berenang." }
+             
+            ]
+        };
+
+        let currentQuestion = {};
+
+        function startGame(category) {
+            const randomIndex = Math.floor(Math.random() * questions[category].length);
+            currentQuestion = questions[category][randomIndex];
+            document.getElementById("question").innerText = currentQuestion.question;
+            document.getElementById("gameContainer").style.display = "block";
+            document.getElementById("result").innerText = "";
+            document.getElementById("answer").value = ""; // Clear previous answer
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer").value;
+            if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
+                document.getElementById("result").innerText = "Tebakan Anda Benar!";
+            } else {
+                document.getElementById("result").innerText = "Tebakan Anda Salah! Jawabannya: " + currentQuestion.answer;
+            }
+        }
+    </script>
+</body>
+</html>
